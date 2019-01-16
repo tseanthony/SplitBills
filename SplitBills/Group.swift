@@ -10,25 +10,27 @@ import UIKit
 
 class Group {
     
-    var groupName: String
-    var groupMembers: [Person]
-    
+    var name: String
+    //will serve as key for picker, and individualTotal dict
+    var members: [String]
+   
+    var membersInfo: [Person]
     var bills: [Bill]
+    var individualTotal: [String: Double]
+    var total: Double
     
-    var individualTotal: [String: Int]
-    var total: Int
-    
-    init?(groupName: String) {
+    init?(name: String) {
         
-        guard !groupName.isEmpty else{
+        guard !name.isEmpty else{
             return nil
         }
         
-        self.groupName = groupName
-        self.groupMembers = []
+        self.name = name
+        self.members = []
+        self.membersInfo = []
         self.bills = []
         self.individualTotal = [:]
-        self.total = 0
+        self.total = 0.0
     }
 }
 

@@ -167,7 +167,7 @@ class BillTableViewController: UITableViewController {
         guard let bill2 = Bill(amount: "49.83", name: "Ram", date: "12/13/2018", description: "Electric Bill \u{1F4A1}") else {
             fatalError("Unable to instantiate bill2")
         }
-        guard let bill3 = Bill(amount: "18.94", name: "Trisha", date: "12/13/2014", description: "Uber to Brooklyn \u{1F695}") else {
+        guard let bill3 = Bill(amount: "18.94", name: "Stephanie", date: "12/13/2014", description: "Uber to Brooklyn \u{1F695}") else {
             fatalError("Unable to instantiate bill3")
         }
         

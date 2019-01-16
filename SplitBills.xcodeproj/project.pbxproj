@@ -13,10 +13,11 @@
 		980E536D21EA884C0070A8B3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 980E536C21EA884C0070A8B3 /* Assets.xcassets */; };
 		980E537021EA884C0070A8B3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 980E536E21EA884C0070A8B3 /* LaunchScreen.storyboard */; };
 		980E537B21EA884C0070A8B3 /* SplitBillsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 980E537A21EA884C0070A8B3 /* SplitBillsTests.swift */; };
-		9877753F21EADB2E0053F437 /* GroupBalance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9877753E21EADB2E0053F437 /* GroupBalance.swift */; };
 		9877754121EC21540053F437 /* Bill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9877754021EC21540053F437 /* Bill.swift */; };
 		9877754321EC2B540053F437 /* BillTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9877754221EC2B540053F437 /* BillTableViewCell.swift */; };
 		9877754521EC40080053F437 /* BillTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9877754421EC40080053F437 /* BillTableViewController.swift */; };
+		98A2977821EE7B8B00764D80 /* GroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A2977721EE7B8B00764D80 /* GroupViewController.swift */; };
+		98A2977A21EEA52C00764D80 /* GroupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A2977921EEA52C00764D80 /* GroupTableViewCell.swift */; };
 		98B6D2B821ED382E006D44D8 /* PersonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B6D2B721ED382E006D44D8 /* PersonViewController.swift */; };
 		98B6D2BA21ED3B8D006D44D8 /* GroupMembersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B6D2B921ED3B8D006D44D8 /* GroupMembersTableViewController.swift */; };
 		98B6D2BC21ED40F4006D44D8 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B6D2BB21ED40F4006D44D8 /* Person.swift */; };
@@ -44,10 +45,11 @@
 		980E537621EA884C0070A8B3 /* SplitBillsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SplitBillsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		980E537A21EA884C0070A8B3 /* SplitBillsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitBillsTests.swift; sourceTree = "<group>"; };
 		980E537C21EA884C0070A8B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9877753E21EADB2E0053F437 /* GroupBalance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupBalance.swift; sourceTree = "<group>"; };
 		9877754021EC21540053F437 /* Bill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bill.swift; sourceTree = "<group>"; };
 		9877754221EC2B540053F437 /* BillTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillTableViewCell.swift; sourceTree = "<group>"; };
 		9877754421EC40080053F437 /* BillTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillTableViewController.swift; sourceTree = "<group>"; };
+		98A2977721EE7B8B00764D80 /* GroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupViewController.swift; sourceTree = "<group>"; };
+		98A2977921EEA52C00764D80 /* GroupTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupTableViewCell.swift; sourceTree = "<group>"; };
 		98B6D2B721ED382E006D44D8 /* PersonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonViewController.swift; sourceTree = "<group>"; };
 		98B6D2B921ED3B8D006D44D8 /* GroupMembersTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupMembersTableViewController.swift; sourceTree = "<group>"; };
 		98B6D2BB21ED40F4006D44D8 /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
@@ -75,7 +77,6 @@
 		980E535921EA88490070A8B3 = {
 			isa = PBXGroup;
 			children = (
-				9877753E21EADB2E0053F437 /* GroupBalance.swift */,
 				980E536421EA88490070A8B3 /* SplitBills */,
 				980E537921EA884C0070A8B3 /* SplitBillsTests */,
 				980E536321EA88490070A8B3 /* Products */,
@@ -95,6 +96,8 @@
 			isa = PBXGroup;
 			children = (
 				980E536921EA88490070A8B3 /* Main.storyboard */,
+				98A2977721EE7B8B00764D80 /* GroupViewController.swift */,
+				98A2977921EEA52C00764D80 /* GroupTableViewCell.swift */,
 				98B6D2B921ED3B8D006D44D8 /* GroupMembersTableViewController.swift */,
 				980E536521EA88490070A8B3 /* AppDelegate.swift */,
 				98B6D2B721ED382E006D44D8 /* PersonViewController.swift */,
@@ -223,8 +226,9 @@
 			files = (
 				9877754121EC21540053F437 /* Bill.swift in Sources */,
 				980E536821EA88490070A8B3 /* BillViewController.swift in Sources */,
-				9877753F21EADB2E0053F437 /* GroupBalance.swift in Sources */,
 				98B6D2BE21ED4145006D44D8 /* Group.swift in Sources */,
+				98A2977821EE7B8B00764D80 /* GroupViewController.swift in Sources */,
+				98A2977A21EEA52C00764D80 /* GroupTableViewCell.swift in Sources */,
 				980E536621EA88490070A8B3 /* AppDelegate.swift in Sources */,
 				9877754521EC40080053F437 /* BillTableViewController.swift in Sources */,
 				9877754321EC2B540053F437 /* BillTableViewCell.swift in Sources */,
@@ -393,6 +397,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 45L38YUJ6X;
 				INFOPLIST_FILE = SplitBills/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -410,6 +415,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 45L38YUJ6X;
 				INFOPLIST_FILE = SplitBills/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

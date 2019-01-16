@@ -10,8 +10,8 @@ import UIKit
 import os.log
 
 
-class BillViewController: UIViewController, UITextFieldDelegate {
-    
+class BillViewController: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource{
+
     //MARK: properties
     @IBOutlet weak var billCost: UITextField!
     @IBOutlet weak var billDate: UITextField!
@@ -22,6 +22,9 @@ class BillViewController: UIViewController, UITextFieldDelegate {
     
     let datePicker = UIDatePicker()
     
+    let namePickerView = UIPickerView()
+    let choices = [String](arrayLiteral: "Anthony", "Brian", "Ollie", "Mary", "Kevin", "Lucy")
+
     /*
      This value is either passed by `BillTableViewController` in `prepare(for:sender:)`
      or constructed as part of adding a new bill.
@@ -49,26 +52,67 @@ class BillViewController: UIViewController, UITextFieldDelegate {
         self.datePicker.datePickerMode = .date
       
         // Set up UIToolBar for billDate (Programmatically)
-        let toolbar = UIToolbar()
-        toolbar.sizeToFit()
+        let billDatetoolbar = UIToolbar()
+        billDatetoolbar.sizeToFit()
         let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(BillViewController.cancelClick))
         let currentButton = UIBarButtonItem(title: "Today", style: .plain, target: self, action: #selector(BillViewController.todayClick))
         let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(BillViewController.doneClick))
         let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         
-        toolbar.setItems([cancelButton, spacer, currentButton, spacer, doneButton], animated: false)
-        toolbar.isUserInteractionEnabled = true
+        billDatetoolbar.setItems([cancelButton, spacer, currentButton, spacer, doneButton], animated: false)
+        billDatetoolbar.isUserInteractionEnabled = true
         
         billDate.inputView = datePicker
-        billDate.inputAccessoryView = toolbar
+        billDate.inputAccessoryView = billDatetoolbar
+        
+        // Set UIPickerView
+        self.namePickerView.delegate = self
+        namePickerView.sizeToFit()
+        
+        // Set up UIToolbarview for UIPickerView
+        let billPayerToolbar = UIToolbar()
+        billPayerToolbar.sizeToFit()
+        let cancelSetNameButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(BillViewController.cancelSetName))
+        let setNameButton = UIBarButtonItem(title: "Select", style: .plain, target: self, action: #selector(BillViewController.doneSetName))
+        billPayerToolbar.setItems([cancelSetNameButton, spacer, setNameButton], animated: false)
+        billPayerToolbar.isUserInteractionEnabled = true
+        
+        billPayer.inputView = namePickerView
+        billPayer.inputAccessoryView = billPayerToolbar
         
         // Update saveButton on load
         updateSaveButtonState()
     }
     
+    //MARK: UIPickerView
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return choices.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView,
+                    titleForRow row: Int,
+                    forComponent component: Int) -> String? {
+        return choices[row]
+    }
+    
+    
+    @objc func doneSetName(){
+        billPayer.text = choices[namePickerView.selectedRow(inComponent: 0)]
+        billPayer.resignFirstResponder()
+    }
+    
+    @objc func cancelSetName(){
+        billPayer.resignFirstResponder()
+    }
+    
 
     //MARK: UITextFieldDelegate
     func textFieldDidBeginEditing(_ textField: UITextField) {
+        
         saveButton.isEnabled = false
     }
     
@@ -82,7 +126,7 @@ class BillViewController: UIViewController, UITextFieldDelegate {
         if billCost.isFirstResponder {
             billCost.text = textField.text
         } else if billPayer.isFirstResponder {
-            billPayer.text = textField.text
+            //billPayer.text = textField.text
         } else if billDescription.isFirstResponder {
             billDescription.text = textField.text
         }
@@ -169,4 +213,6 @@ class BillViewController: UIViewController, UITextFieldDelegate {
         
         billDate.resignFirstResponder()
     }
+    
+
 }
