@@ -12,7 +12,9 @@ import os.log
 class BillTableViewController: UITableViewController {
 
     //MARK: Properties
-    var bills = [Bill]()
+    var group: Group?
+ 
+    //   var bills = [Bill]()
     
     
     override func viewDidLoad() {
@@ -21,7 +23,8 @@ class BillTableViewController: UITableViewController {
         // Use the edit button item provided by the table view controller.
         navigationItem.leftBarButtonItem = editButtonItem
         
-        loadSampleBills()
+        //loadSampleBills()
+        //bills = group?.bills ?? []
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -39,7 +42,7 @@ class BillTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return bills.count
+        return group?.bills.count ?? 0
     }
 
     
@@ -52,13 +55,15 @@ class BillTableViewController: UITableViewController {
             fatalError("The dequeued cell is not an instance of BillTableViewCell.")
         }
 
-        let bill = bills[indexPath.row]
+        let bill = group?.bills[indexPath.row]
 
         // Configure the cell...
-        cell.amountLabel.text = "$" + bill.amount
-        cell.nameLabel.text = bill.name
-        cell.dateLabel.text = bill.date
-        cell.descriptionLabel.text = bill.description
+        
+        
+        cell.amountLabel.text = "$" + (bill?.amount.description)!
+        cell.nameLabel.text = bill?.name
+        cell.dateLabel.text = bill?.date
+        cell.descriptionLabel.text = bill?.description
 
         return cell
     }
@@ -77,7 +82,7 @@ class BillTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
-            bills.remove(at: indexPath.row)
+            group?.bills.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
@@ -110,6 +115,16 @@ class BillTableViewController: UITableViewController {
         switch(segue.identifier ?? "") {
             
         case "AddItem":
+            guard let nav = segue.destination as? UINavigationController else {
+                fatalError("Unexpected destination: \(segue.destination)")
+            }
+            
+            guard let billDetailViewController = nav.viewControllers[0] as? BillViewController else {
+                fatalError("Unexpected destination: \(segue.destination)")
+            }
+            
+            //for UIPicker
+            billDetailViewController.choices = group?.members ?? []
             os_log("Adding a new bill.", log: OSLog.default, type: .debug)
             
         case "ShowDetail":
@@ -125,8 +140,11 @@ class BillTableViewController: UITableViewController {
                 fatalError("The selected cell is not being displayed by the table")
             }
             
-            let selectedBill = bills[indexPath.row]
+            let selectedBill = group?.bills[indexPath.row]
             billDetailViewController.bill = selectedBill
+            
+            //for UIPicker
+            billDetailViewController.choices = group?.members ?? []
             
         default:
             fatalError("Unexpected Segue Identifier; \(segue.debugDescription)")
@@ -142,36 +160,33 @@ class BillTableViewController: UITableViewController {
             
             if let selectedIndexPath = tableView.indexPathForSelectedRow {
                 // Update an existing meal.
-                bills[selectedIndexPath.row] = bill
+ 
+                let newval = bill.amount
+                //unsafely unwrap optionals NEED TO ADDRESS
+                let oldval = group!.bills[selectedIndexPath.row].amount
+                let currentdebt = group!.individualTotal[bill.name]
+                
+                let update = (currentdebt! - oldval + newval)
+                group?.individualTotal[bill.name] = update
+                
+                group?.bills[selectedIndexPath.row] = bill
                 tableView.reloadRows(at: [selectedIndexPath], with: .none)
             }
             else {
                 // Add a new bill.
-                let newIndexPath = IndexPath(row: bills.count, section: 0)
+                let newIndexPath = IndexPath(row: (group?.bills.count)!, section: 0)
                 
-                bills.append(bill)
+                group?.bills.append(bill)
                 tableView.insertRows(at: [newIndexPath], with: .automatic)
+                
+                //Update individual debt
+                let newval = bill.amount
+                let currentdebt = group!.individualTotal[bill.name]
+                let update = (currentdebt! + newval)
+                group?.individualTotal[bill.name] = update
+                
+                
             }
-            
         }
     }
-    
-    
-    
-    //MARK: Private Methods
-    
-    private func loadSampleBills() {
-        guard let bill1 = Bill(amount: "12.73", name: "Anthony", date: "01/13/2019", description: "Pizza \u{1F355}") else {
-            fatalError("Unable to instantiate bill1")
-        }
-        guard let bill2 = Bill(amount: "49.83", name: "Ram", date: "12/13/2018", description: "Electric Bill \u{1F4A1}") else {
-            fatalError("Unable to instantiate bill2")
-        }
-        guard let bill3 = Bill(amount: "18.94", name: "Stephanie", date: "12/13/2014", description: "Uber to Brooklyn \u{1F695}") else {
-            fatalError("Unable to instantiate bill3")
-        }
-        
-        bills += [bill1, bill2, bill3]
-    }
-    
 }

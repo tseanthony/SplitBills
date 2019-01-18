@@ -18,6 +18,9 @@
 		9877754521EC40080053F437 /* BillTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9877754421EC40080053F437 /* BillTableViewController.swift */; };
 		98A2977821EE7B8B00764D80 /* GroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A2977721EE7B8B00764D80 /* GroupViewController.swift */; };
 		98A2977A21EEA52C00764D80 /* GroupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98A2977921EEA52C00764D80 /* GroupTableViewCell.swift */; };
+		98B10C2B21F1234F00259756 /* ModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B10C2A21F1234F00259756 /* ModelController.swift */; };
+		98B10C2F21F1322900259756 /* SummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B10C2E21F1322900259756 /* SummaryViewController.swift */; };
+		98B10C3121F1446A00259756 /* SummaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B10C3021F1446A00259756 /* SummaryTableViewCell.swift */; };
 		98B6D2B821ED382E006D44D8 /* PersonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B6D2B721ED382E006D44D8 /* PersonViewController.swift */; };
 		98B6D2BA21ED3B8D006D44D8 /* GroupMembersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B6D2B921ED3B8D006D44D8 /* GroupMembersTableViewController.swift */; };
 		98B6D2BC21ED40F4006D44D8 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B6D2BB21ED40F4006D44D8 /* Person.swift */; };
@@ -50,6 +53,9 @@
 		9877754421EC40080053F437 /* BillTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BillTableViewController.swift; sourceTree = "<group>"; };
 		98A2977721EE7B8B00764D80 /* GroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupViewController.swift; sourceTree = "<group>"; };
 		98A2977921EEA52C00764D80 /* GroupTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupTableViewCell.swift; sourceTree = "<group>"; };
+		98B10C2A21F1234F00259756 /* ModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelController.swift; sourceTree = "<group>"; };
+		98B10C2E21F1322900259756 /* SummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryViewController.swift; sourceTree = "<group>"; };
+		98B10C3021F1446A00259756 /* SummaryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryTableViewCell.swift; sourceTree = "<group>"; };
 		98B6D2B721ED382E006D44D8 /* PersonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonViewController.swift; sourceTree = "<group>"; };
 		98B6D2B921ED3B8D006D44D8 /* GroupMembersTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupMembersTableViewController.swift; sourceTree = "<group>"; };
 		98B6D2BB21ED40F4006D44D8 /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
@@ -95,11 +101,14 @@
 		980E536421EA88490070A8B3 /* SplitBills */ = {
 			isa = PBXGroup;
 			children = (
+				98B10C2E21F1322900259756 /* SummaryViewController.swift */,
+				98B10C3021F1446A00259756 /* SummaryTableViewCell.swift */,
+				980E536521EA88490070A8B3 /* AppDelegate.swift */,
 				980E536921EA88490070A8B3 /* Main.storyboard */,
+				98B10C2A21F1234F00259756 /* ModelController.swift */,
 				98A2977721EE7B8B00764D80 /* GroupViewController.swift */,
 				98A2977921EEA52C00764D80 /* GroupTableViewCell.swift */,
 				98B6D2B921ED3B8D006D44D8 /* GroupMembersTableViewController.swift */,
-				980E536521EA88490070A8B3 /* AppDelegate.swift */,
 				98B6D2B721ED382E006D44D8 /* PersonViewController.swift */,
 				980E536721EA88490070A8B3 /* BillViewController.swift */,
 				9877754421EC40080053F437 /* BillTableViewController.swift */,
@@ -225,15 +234,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				9877754121EC21540053F437 /* Bill.swift in Sources */,
+				98B10C2F21F1322900259756 /* SummaryViewController.swift in Sources */,
 				980E536821EA88490070A8B3 /* BillViewController.swift in Sources */,
 				98B6D2BE21ED4145006D44D8 /* Group.swift in Sources */,
 				98A2977821EE7B8B00764D80 /* GroupViewController.swift in Sources */,
+				98B10C2B21F1234F00259756 /* ModelController.swift in Sources */,
 				98A2977A21EEA52C00764D80 /* GroupTableViewCell.swift in Sources */,
 				980E536621EA88490070A8B3 /* AppDelegate.swift in Sources */,
 				9877754521EC40080053F437 /* BillTableViewController.swift in Sources */,
 				9877754321EC2B540053F437 /* BillTableViewCell.swift in Sources */,
 				98B6D2BC21ED40F4006D44D8 /* Person.swift in Sources */,
 				98B6D2B821ED382E006D44D8 /* PersonViewController.swift in Sources */,
+				98B10C3121F1446A00259756 /* SummaryTableViewCell.swift in Sources */,
 				98B6D2BA21ED3B8D006D44D8 /* GroupMembersTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

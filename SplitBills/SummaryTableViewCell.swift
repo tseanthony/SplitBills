@@ -1,17 +1,17 @@
 //
-//  GroupTableViewCell.swift
+//  SummaryTableViewCell.swift
 //  SplitBills
 //
-//  Created by Anthony Tse on 1/15/19.
+//  Created by Anthony Tse on 1/17/19.
 //  Copyright © 2019 Anthony Tse. All rights reserved.
 //
 
 import UIKit
 
-class GroupTableViewCell: UITableViewCell {
-    
-    //MARK: Properties
+class SummaryTableViewCell: UITableViewCell {
+
     @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var debtLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

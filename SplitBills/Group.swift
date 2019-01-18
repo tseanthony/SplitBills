@@ -11,13 +11,13 @@ import UIKit
 class Group {
     
     var name: String
-    //will serve as key for picker, and individualTotal dict
-    var members: [String]
+    var members: [String]   //will serve as key for picker, and individualTotal dict
+    var individualTotal: [String: Double]
+    var total: Double
    
     var membersInfo: [Person]
     var bills: [Bill]
-    var individualTotal: [String: Double]
-    var total: Double
+    
     
     init?(name: String) {
         

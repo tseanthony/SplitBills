@@ -10,12 +10,12 @@ import UIKit
 
 class Bill {
     
-    var amount: String
+    var amount: Double
     var name: String
     var date: String
     var description: String
     
-    init?(amount: String, name: String, date: String, description: String) {
+    init?(amount: Double, name: String, date: String, description: String) {
         
 //        guard amount > 0  else {
 //            return nil

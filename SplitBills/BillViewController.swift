@@ -11,7 +11,7 @@ import os.log
 
 
 class BillViewController: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource{
-
+    
     //MARK: properties
     @IBOutlet weak var billCost: UITextField!
     @IBOutlet weak var billDate: UITextField!
@@ -23,7 +23,8 @@ class BillViewController: UIViewController, UITextFieldDelegate, UIPickerViewDel
     let datePicker = UIDatePicker()
     
     let namePickerView = UIPickerView()
-    let choices = [String](arrayLiteral: "Anthony", "Brian", "Ollie", "Mary", "Kevin", "Lucy")
+    
+    var choices = [String]()
 
     /*
      This value is either passed by `BillTableViewController` in `prepare(for:sender:)`
@@ -42,7 +43,7 @@ class BillViewController: UIViewController, UITextFieldDelegate, UIPickerViewDel
         
         // Populate text fields if coming from ShowDetail Segue
         if let bill = bill {
-            billCost.text = bill.amount
+            billCost.text = bill.amount.description
             billPayer.text = bill.name
             billDate.text = bill.date
             billDescription.text = bill.description
@@ -157,7 +158,14 @@ class BillViewController: UIViewController, UITextFieldDelegate, UIPickerViewDel
             return
         }
         
-        let cost = billCost.text ?? "error"
+//        let amountformatter = NumberFormatter()
+//        amountformatter.numberStyle = .currency
+//        amountformatter.locale = Locale.current
+        
+        guard let cost0 = billCost.text else {
+            fatalError("Unexpected destination: number")
+        }
+        let cost = (cost0 as NSString).doubleValue
         let date = billDate.text ?? "error"
         let payer = billPayer.text ?? "error"
         let description = billDescription.text ?? "error"
