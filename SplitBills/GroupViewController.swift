@@ -11,6 +11,8 @@ import os.log
 
 class GroupViewController: UIViewController, UITableViewDataSource {
 
+    
+    @IBOutlet weak var navBar: UINavigationBar!
     @IBOutlet weak var groupTableView: UITableView!
   
     var modelcontroller: ModelController!
@@ -19,13 +21,13 @@ class GroupViewController: UIViewController, UITableViewDataSource {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navBar.shadowImage = UIImage()
         groupTableView.dataSource = self
         
         //Temporary
         loadSampleGroups()
         modelcontroller.groups = self.groups
     
-        // Do any additional setup after loading the view.
     }
 
     //MARK: Table View Data Source
@@ -57,12 +59,16 @@ class GroupViewController: UIViewController, UITableViewDataSource {
         
         case "pickGroup":
             
-            
             guard let barViewController = segue.destination as? UITabBarController else {
                 fatalError("Unexpected destination: \(segue.destination)")
             }
             //Bar Tab 1
-            guard let SumViewController = barViewController.viewControllers?[0] as? SummaryViewController else {
+            
+            guard let SumViewNav = barViewController.viewControllers?[0] as? UINavigationController else {
+                fatalError("Unexpected destination: \(segue.destination)")
+            }
+            
+            guard let SumViewController = SumViewNav.viewControllers[0] as? SummaryViewController else {
                 fatalError("Unexpected destination: \(segue.destination)")
             }
             
@@ -86,6 +92,8 @@ class GroupViewController: UIViewController, UITableViewDataSource {
             let selectedGroup = groups[indexPath.row]
             SumViewController.group = selectedGroup
             BillListCont.group = selectedGroup
+         
+        case "addGroup": break
             
         default:
                 fatalError("Unexpected Segue Identifier; \(segue.debugDescription)")
@@ -119,6 +127,8 @@ class GroupViewController: UIViewController, UITableViewDataSource {
         guard let group3 = Group(name: "Chiefs") else {
             fatalError("Unable to instantiate bill3")
         }
+        
+        
         group1.members = ["Anthony", "Ram", "Stephanie"]
         group1.bills = bills
         group1.individualTotal = ["Anthony": 12.73, "Ram":49.83, "Stephanie": 18.94 ]

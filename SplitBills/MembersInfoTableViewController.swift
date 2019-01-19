@@ -1,5 +1,5 @@
 //
-//  GroupMembersTableViewController.swift
+//  MembersInfoTableViewController.swift
 //  SplitBills
 //
 //  Created by Anthony Tse on 1/14/19.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class GroupMembersTableViewController: UITableViewController {
+class MembersInfoViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

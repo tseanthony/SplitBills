@@ -162,7 +162,8 @@ class BillTableViewController: UITableViewController {
                 // Update an existing meal.
  
                 let newval = bill.amount
-                //unsafely unwrap optionals NEED TO ADDRESS
+                
+                // "unsafely" unwrap optionals, possibly address.
                 let oldval = group!.bills[selectedIndexPath.row].amount
                 let currentdebt = group!.individualTotal[bill.name]
                 

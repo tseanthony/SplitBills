@@ -22,7 +22,7 @@
 		98B10C2F21F1322900259756 /* SummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B10C2E21F1322900259756 /* SummaryViewController.swift */; };
 		98B10C3121F1446A00259756 /* SummaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B10C3021F1446A00259756 /* SummaryTableViewCell.swift */; };
 		98B6D2B821ED382E006D44D8 /* PersonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B6D2B721ED382E006D44D8 /* PersonViewController.swift */; };
-		98B6D2BA21ED3B8D006D44D8 /* GroupMembersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B6D2B921ED3B8D006D44D8 /* GroupMembersTableViewController.swift */; };
+		98B6D2BA21ED3B8D006D44D8 /* MembersInfoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B6D2B921ED3B8D006D44D8 /* MembersInfoTableViewController.swift */; };
 		98B6D2BC21ED40F4006D44D8 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B6D2BB21ED40F4006D44D8 /* Person.swift */; };
 		98B6D2BE21ED4145006D44D8 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B6D2BD21ED4145006D44D8 /* Group.swift */; };
 /* End PBXBuildFile section */
@@ -57,7 +57,7 @@
 		98B10C2E21F1322900259756 /* SummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryViewController.swift; sourceTree = "<group>"; };
 		98B10C3021F1446A00259756 /* SummaryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryTableViewCell.swift; sourceTree = "<group>"; };
 		98B6D2B721ED382E006D44D8 /* PersonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonViewController.swift; sourceTree = "<group>"; };
-		98B6D2B921ED3B8D006D44D8 /* GroupMembersTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupMembersTableViewController.swift; sourceTree = "<group>"; };
+		98B6D2B921ED3B8D006D44D8 /* MembersInfoTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembersInfoTableViewController.swift; sourceTree = "<group>"; };
 		98B6D2BB21ED40F4006D44D8 /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
 		98B6D2BD21ED4145006D44D8 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -108,7 +108,7 @@
 				98B10C2A21F1234F00259756 /* ModelController.swift */,
 				98A2977721EE7B8B00764D80 /* GroupViewController.swift */,
 				98A2977921EEA52C00764D80 /* GroupTableViewCell.swift */,
-				98B6D2B921ED3B8D006D44D8 /* GroupMembersTableViewController.swift */,
+				98B6D2B921ED3B8D006D44D8 /* MembersInfoTableViewController.swift */,
 				98B6D2B721ED382E006D44D8 /* PersonViewController.swift */,
 				980E536721EA88490070A8B3 /* BillViewController.swift */,
 				9877754421EC40080053F437 /* BillTableViewController.swift */,
@@ -246,7 +246,7 @@
 				98B6D2BC21ED40F4006D44D8 /* Person.swift in Sources */,
 				98B6D2B821ED382E006D44D8 /* PersonViewController.swift in Sources */,
 				98B10C3121F1446A00259756 /* SummaryTableViewCell.swift in Sources */,
-				98B6D2BA21ED3B8D006D44D8 /* GroupMembersTableViewController.swift in Sources */,
+				98B6D2BA21ED3B8D006D44D8 /* MembersInfoTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

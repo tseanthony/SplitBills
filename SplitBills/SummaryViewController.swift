@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import os.log
 
 class SummaryViewController: UIViewController, UITableViewDataSource {
 
@@ -48,8 +49,30 @@ class SummaryViewController: UIViewController, UITableViewDataSource {
         
     }
 
+    @IBAction func done(_ sender: UIBarButtonItem) {
+        
+        guard let tabController = self.tabBarController else {
+            fatalError("no uiTabbarcontroller")
+        }
+        
+        
+//        for controller in tabController.viewControllers! {
+//            if controller is UINavigationController {
+//                guard let navcontroller = controller as? UINavigationController else{
+//                    fatalError("Controller to be popped is not a UINavigationController")
+//                }
+//                navcontroller.popToRootViewController(animated: false)
+//            }
+//        }
+        
+        tabController.dismiss(animated: true, completion: nil)
+
+    }
+    
+    
+    
     /*
-    // MARK: - Navigation
+    
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
