@@ -14,18 +14,12 @@ class BillTableViewController: UITableViewController {
     //MARK: Properties
     var group: Group?
  
-    //   var bills = [Bill]()
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Use the edit button item provided by the table view controller.
         navigationItem.leftBarButtonItem = editButtonItem
         
-        //loadSampleBills()
-        //bills = group?.bills ?? []
-
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -58,8 +52,6 @@ class BillTableViewController: UITableViewController {
         let bill = group?.bills[indexPath.row]
 
         // Configure the cell...
-        
-        
         cell.amountLabel.text = "$" + (bill?.amount.description)!
         cell.nameLabel.text = bill?.name
         cell.dateLabel.text = bill?.date
@@ -77,7 +69,6 @@ class BillTableViewController: UITableViewController {
     }
     */
 
-    
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
@@ -185,7 +176,6 @@ class BillTableViewController: UITableViewController {
                 let currentdebt = group!.individualTotal[bill.name]
                 let update = (currentdebt! + newval)
                 group?.individualTotal[bill.name] = update
-                
                 
             }
         }

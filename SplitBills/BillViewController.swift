@@ -158,12 +158,8 @@ class BillViewController: UIViewController, UITextFieldDelegate, UIPickerViewDel
             return
         }
         
-//        let amountformatter = NumberFormatter()
-//        amountformatter.numberStyle = .currency
-//        amountformatter.locale = Locale.current
-        
         guard let cost0 = billCost.text else {
-            fatalError("Unexpected destination: number")
+            fatalError("Unexpected number")
         }
         let cost = (cost0 as NSString).doubleValue
         let date = billDate.text ?? "error"

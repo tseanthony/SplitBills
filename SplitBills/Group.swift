@@ -26,10 +26,10 @@ class Group {
         }
         
         self.name = name
-        self.members = []
-        self.membersInfo = []
-        self.bills = []
-        self.individualTotal = [:]
+        self.members = [String]()
+        self.membersInfo = [Person]()
+        self.bills = [Bill]()
+        self.individualTotal = [String:Double]()
         self.total = 0.0
     }
 }

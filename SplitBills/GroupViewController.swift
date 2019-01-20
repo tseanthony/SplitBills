@@ -9,7 +9,7 @@
 import UIKit
 import os.log
 
-class GroupViewController: UIViewController, UITableViewDataSource {
+class GroupViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     
     @IBOutlet weak var navBar: UINavigationBar!
@@ -23,8 +23,8 @@ class GroupViewController: UIViewController, UITableViewDataSource {
         
         navBar.shadowImage = UIImage()
         groupTableView.dataSource = self
-        
-        //Temporary
+        groupTableView.delegate = self
+        //Temporary until I get persistent data
         loadSampleGroups()
         modelcontroller.groups = self.groups
     
@@ -32,7 +32,7 @@ class GroupViewController: UIViewController, UITableViewDataSource {
 
     //MARK: Table View Data Source
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return groups.count
+        return modelcontroller.groups.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -43,10 +43,21 @@ class GroupViewController: UIViewController, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? GroupTableViewCell else { fatalError("The dequeued cell is not an instance of BillTableViewCell.")
         }
         
-        let group = groups[indexPath.row]
+        let group = modelcontroller.groups[indexPath.row]
         cell.nameLabel.text = group.name
         return cell
         
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            
+            modelcontroller.groups.remove(at: indexPath.row)
+            
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        } else if editingStyle == .insert {
+            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+        }
     }
 
     
@@ -88,10 +99,20 @@ class GroupViewController: UIViewController, UITableViewDataSource {
             guard let indexPath = groupTableView.indexPath(for: selectedGroupCell) else {
                 fatalError("The selected cell is not being displayed by the table")
             }
+            //Bar Tab 3
+            guard let MemInfoNavController = barViewController.viewControllers?[2] as? UINavigationController else {
+                fatalError("Unexpected destination: \(segue.destination)")
+            }
             
-            let selectedGroup = groups[indexPath.row]
+            guard let MemInfoController = MemInfoNavController.viewControllers[0] as? MembersInfoTableViewController else {
+                fatalError("Unexpected destination: \(segue.destination)")
+            }
+            
+            //Deliver references
+            let selectedGroup = modelcontroller.groups[indexPath.row]
             SumViewController.group = selectedGroup
             BillListCont.group = selectedGroup
+            MemInfoController.group = selectedGroup
          
         case "addGroup": break
             
@@ -99,6 +120,16 @@ class GroupViewController: UIViewController, UITableViewDataSource {
                 fatalError("Unexpected Segue Identifier; \(segue.debugDescription)")
         }
         // Pass the selected object to the new view controller.
+    }
+    
+    @IBAction func unwindToGroupView(sender: UIStoryboardSegue) {
+        if let sourceViewController = sender.source as? AddGroupViewController, let group = sourceViewController.group {
+            
+            let newIndexPath = IndexPath(row: modelcontroller.groups.count, section: 0)
+        
+            modelcontroller.groups.append(group)
+            groupTableView.insertRows(at: [newIndexPath], with: .automatic)
+        }
     }
     
 
@@ -150,6 +181,5 @@ class GroupViewController: UIViewController, UITableViewDataSource {
         
         groups += [group1, group2, group3]
     
-        
     }
 }

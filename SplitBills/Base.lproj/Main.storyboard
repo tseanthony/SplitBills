@@ -112,11 +112,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bVv-cn-BT7">
+                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default" translatesAutoresizingMaskIntoConstraints="NO" id="bVv-cn-BT7">
                                 <rect key="frame" x="123" y="84" width="129" height="129"/>
+                                <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="bVv-cn-BT7" secondAttribute="height" multiplier="1:1" id="KU9-we-gHi"/>
                                 </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="rSD-gO-uDi" appends="YES" id="tc1-I4-2yJ"/>
+                                </connections>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c1a-MJ-sFZ">
                                 <rect key="frame" x="16" y="221" width="49" height="30"/>
@@ -185,17 +189,33 @@
                         <viewLayoutGuide key="safeArea" id="Yvd-Wq-Xhf"/>
                     </view>
                     <navigationItem key="navigationItem" title="Add Member" id="gbn-Pb-Ygb">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="mdX-4q-58O"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="tOp-aJ-gya"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="mdX-4q-58O">
+                            <connections>
+                                <action selector="cancel:" destination="Vj0-5X-UNJ" id="3f4-t2-MMj"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="tOp-aJ-gya">
+                            <connections>
+                                <segue destination="QRa-B9-JzG" kind="unwind" unwindAction="unwindToMemberListWithSender:" id="Rgg-zA-UPp"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="cancelButton" destination="mdX-4q-58O" id="s3z-zg-0aG"/>
                         <outlet property="personEmail" destination="AGt-wM-SHP" id="8JD-zl-JNB"/>
                         <outlet property="personImage" destination="bVv-cn-BT7" id="yPV-yu-RFj"/>
                         <outlet property="personName" destination="Vat-xw-Pbn" id="yDh-Zx-ksW"/>
                         <outlet property="personPhoneNumber" destination="epR-L8-SRb" id="Gio-n3-DGD"/>
+                        <outlet property="saveButton" destination="tOp-aJ-gya" id="Igw-j9-ufp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Ub-0z-kPx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="QRa-B9-JzG" userLabel="Exit" sceneMemberID="exit"/>
+                <tapGestureRecognizer id="rSD-gO-uDi">
+                    <connections>
+                        <action selector="selectImageFromPhotoLibrary:" destination="Vj0-5X-UNJ" id="4G8-5H-818"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="4177" y="949"/>
         </scene>
@@ -302,13 +322,13 @@
         <!--Member Info-->
         <scene sceneID="tYi-Wg-4QQ">
             <objects>
-                <tableViewController id="Z5P-hU-Ubp" sceneMemberID="viewController">
+                <tableViewController id="Z5P-hU-Ubp" customClass="MembersInfoTableViewController" customModule="SplitBills" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="90" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="ge6-VD-tMK">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="memberInfoCell" rowHeight="90" id="32k-wM-yEN">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PersonTableViewCell" rowHeight="90" id="32k-wM-yEN" customClass="PersonTableViewCell" customModule="SplitBills" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="90"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="32k-wM-yEN" id="gFr-W2-Qf5">
@@ -359,6 +379,12 @@
                                         <constraint firstAttribute="bottom" secondItem="EjT-7d-WCO" secondAttribute="bottom" id="uo3-bQ-Z2Y"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="personEmail" destination="BOK-ru-np1" id="g79-wj-TQO"/>
+                                    <outlet property="personImage" destination="EjT-7d-WCO" id="PYM-we-e5A"/>
+                                    <outlet property="personName" destination="kMa-Yi-4YE" id="Njh-ta-Ls2"/>
+                                    <outlet property="personPhoneNumber" destination="ih9-y2-ODg" id="HZR-7N-5sD"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -376,7 +402,7 @@
         <!--Add Group-->
         <scene sceneID="4wS-2b-Nw9">
             <objects>
-                <viewController id="Dc8-Es-ZFu" sceneMemberID="viewController">
+                <viewController id="Dc8-Es-ZFu" customClass="AddGroupViewController" customModule="SplitBills" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="rJf-9s-79j">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -385,7 +411,7 @@
                                 <rect key="frame" x="0.0" y="184" width="375" height="483"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="addGroupCell" rowHeight="90" id="xrW-6i-6lZ">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AddGroupTableViewCell" rowHeight="90" id="xrW-6i-6lZ" customClass="AddGroupTableViewCell" customModule="SplitBills" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xrW-6i-6lZ" id="WmW-1B-7YN">
@@ -401,19 +427,19 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="c8F-jD-7o8">
                                                     <rect key="frame" x="99.5" y="11" width="260.5" height="68"/>
                                                     <subviews>
-                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Name" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="AJO-CV-VSL">
+                                                        <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Name" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="AJO-CV-VSL">
                                                             <rect key="frame" x="0.0" y="0.0" width="260.5" height="21.5"/>
                                                             <nil key="textColor"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <textInputTraits key="textInputTraits"/>
                                                         </textField>
-                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Phone Number" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nQ5-sD-anz">
+                                                        <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Phone Number" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nQ5-sD-anz">
                                                             <rect key="frame" x="0.0" y="23.5" width="260.5" height="21"/>
                                                             <nil key="textColor"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <textInputTraits key="textInputTraits"/>
                                                         </textField>
-                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Email" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KqN-z8-Si9">
+                                                        <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Email" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KqN-z8-Si9">
                                                             <rect key="frame" x="0.0" y="46.5" width="260.5" height="21.5"/>
                                                             <nil key="textColor"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -437,7 +463,11 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="Vj0-5X-UNJ" kind="show" id="ute-LZ-EgY"/>
+                                            <outlet property="personEmail" destination="KqN-z8-Si9" id="54J-b2-N4F"/>
+                                            <outlet property="personImage" destination="sS6-Qf-i2j" id="z3q-Xw-hKK"/>
+                                            <outlet property="personName" destination="AJO-CV-VSL" id="QdP-LJ-0q4"/>
+                                            <outlet property="personPhoneNumber" destination="nQ5-sD-anz" id="sTH-vL-272"/>
+                                            <segue destination="Vj0-5X-UNJ" kind="show" identifier="showDetail" id="ute-LZ-EgY"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -463,7 +493,7 @@
                                 <rect key="frame" x="143" y="134" width="89" height="30"/>
                                 <state key="normal" title="Add Member"/>
                                 <connections>
-                                    <segue destination="0x3-x3-5A3" kind="presentation" id="Q4t-41-6vL"/>
+                                    <segue destination="0x3-x3-5A3" kind="presentation" identifier="addMember" id="Q4t-41-6vL"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -482,11 +512,25 @@
                         <viewLayoutGuide key="safeArea" id="gC7-Xa-MKL"/>
                     </view>
                     <navigationItem key="navigationItem" title="Add Group" id="nWG-F2-W2Z">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="z8J-rw-xgz"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="RUn-Y0-F1j"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="z8J-rw-xgz">
+                            <connections>
+                                <action selector="cancel:" destination="Dc8-Es-ZFu" id="5iR-ju-ak8"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="RUn-Y0-F1j">
+                            <connections>
+                                <segue destination="skj-1i-N2Z" kind="unwind" unwindAction="unwindToGroupViewWithSender:" id="pV5-O6-kmI"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="groupNameTextField" destination="cVX-WR-tQH" id="MSt-X4-LFx"/>
+                        <outlet property="memberTable" destination="xQP-pu-Hft" id="ded-wG-dd1"/>
+                        <outlet property="saveButton" destination="RUn-Y0-F1j" id="Ma2-R6-VDQ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lin-Tc-kAb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="skj-1i-N2Z" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2333.5999999999999" y="948.57571214392806"/>
         </scene>
@@ -683,8 +727,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="2Gr-fM-NED">
-                                <rect key="frame" x="16" y="115" width="343" height="503"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" bounces="NO" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="2Gr-fM-NED">
+                                <rect key="frame" x="16" y="128" width="343" height="490"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SummaryTableViewCell" id="iqZ-ZK-HHr" customClass="SummaryTableViewCell" customModule="SplitBills" customModuleProvider="target">
@@ -725,9 +769,9 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Am-hJ-PiG">
-                                <rect key="frame" x="16" y="64" width="343" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Am-hJ-PiG">
+                                <rect key="frame" x="16" y="84" width="343" height="24"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -736,11 +780,11 @@
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="2Gr-fM-NED" secondAttribute="trailing" id="Cph-UM-hP6"/>
                             <constraint firstItem="1Am-hJ-PiG" firstAttribute="leading" secondItem="gUp-fY-IL9" secondAttribute="leadingMargin" id="LLP-lP-c8t"/>
-                            <constraint firstItem="1Am-hJ-PiG" firstAttribute="top" secondItem="7DY-e5-AZz" secondAttribute="top" id="cjU-Xd-gVS"/>
+                            <constraint firstItem="1Am-hJ-PiG" firstAttribute="top" secondItem="7DY-e5-AZz" secondAttribute="top" constant="20" id="cjU-Xd-gVS"/>
                             <constraint firstAttribute="trailingMargin" secondItem="1Am-hJ-PiG" secondAttribute="trailing" id="fbO-CM-Egi"/>
                             <constraint firstItem="2Gr-fM-NED" firstAttribute="leading" secondItem="gUp-fY-IL9" secondAttribute="leadingMargin" id="hTN-2o-emO"/>
                             <constraint firstItem="7DY-e5-AZz" firstAttribute="bottom" secondItem="2Gr-fM-NED" secondAttribute="bottom" id="iIP-Zg-I4E"/>
-                            <constraint firstItem="2Gr-fM-NED" firstAttribute="top" secondItem="1Am-hJ-PiG" secondAttribute="bottom" constant="30" id="pCi-KK-eEF"/>
+                            <constraint firstItem="2Gr-fM-NED" firstAttribute="top" secondItem="1Am-hJ-PiG" secondAttribute="bottom" constant="20" id="pCi-KK-eEF"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="7DY-e5-AZz"/>
                     </view>
@@ -766,6 +810,7 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="wqG-bW-l2v" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="3Qk-we-c37">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
@@ -837,6 +882,7 @@
     </scenes>
     <resources>
         <image name="balanceIcon" width="23" height="23"/>
+        <image name="default" width="540" height="540"/>
         <image name="expensesIcon" width="23" height="23"/>
         <image name="membersIcon" width="23" height="23"/>
     </resources>
