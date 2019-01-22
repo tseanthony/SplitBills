@@ -26,7 +26,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SplitBills/BillTableViewController.swift"
-            timestampString = "569649806.432955"
+            timestampString = "569878663.011747"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "71"
@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SplitBills/GroupViewController.swift"
-            timestampString = "569649806.4330879"
+            timestampString = "569878663.016964"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "123"
-            endingLineNumber = "123"
+            startingLineNumber = "126"
+            endingLineNumber = "126"
             landmarkName = "prepare(for:sender:)"
             landmarkType = "7">
          </BreakpointContent>

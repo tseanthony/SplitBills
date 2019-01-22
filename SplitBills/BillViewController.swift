@@ -46,7 +46,7 @@ class BillViewController: UIViewController, UITextFieldDelegate, UIPickerViewDel
             billCost.text = bill.amount.description
             billPayer.text = bill.name
             billDate.text = bill.date
-            billDescription.text = bill.description
+            billDescription.text = bill.billdescription
         }
         
         // Set up UIDatePicker for billDate (Programmatically)
@@ -166,7 +166,7 @@ class BillViewController: UIViewController, UITextFieldDelegate, UIPickerViewDel
         let payer = billPayer.text ?? "error"
         let description = billDescription.text ?? "error"
         
-        bill = Bill(amount: cost, name: payer, date: date, description: description)
+        bill = Bill(amount: cost, name: payer, date: date, billdescription: description)
     }
     
     

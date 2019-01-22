@@ -55,7 +55,7 @@ class BillTableViewController: UITableViewController {
         cell.amountLabel.text = "$" + (bill?.amount.description)!
         cell.nameLabel.text = bill?.name
         cell.dateLabel.text = bill?.date
-        cell.descriptionLabel.text = bill?.description
+        cell.descriptionLabel.text = bill?.billdescription
 
         return cell
     }
@@ -72,6 +72,11 @@ class BillTableViewController: UITableViewController {
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
+            let name = group!.bills[indexPath.row].name
+            let val = group!.bills[indexPath.row].amount
+            
+            group!.individualTotal[name] = group!.individualTotal[name]! - val
+            
             // Delete the row from the data source
             group?.bills.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
@@ -150,16 +155,15 @@ class BillTableViewController: UITableViewController {
         if let sourceViewController = sender.source as? BillViewController, let bill = sourceViewController.bill {
             
             if let selectedIndexPath = tableView.indexPathForSelectedRow {
-                // Update an existing meal.
  
+                //Edit existing bill
+                let oldname = group!.bills[selectedIndexPath.row].name
+                let oldval = group!.bills[selectedIndexPath.row].amount
+                let newname = bill.name
                 let newval = bill.amount
                 
-                // "unsafely" unwrap optionals, possibly address.
-                let oldval = group!.bills[selectedIndexPath.row].amount
-                let currentdebt = group!.individualTotal[bill.name]
-                
-                let update = (currentdebt! - oldval + newval)
-                group?.individualTotal[bill.name] = update
+                group!.individualTotal[oldname] = group!.individualTotal[oldname]! - oldval
+                group!.individualTotal[newname] = group!.individualTotal[newname]! + newval
                 
                 group?.bills[selectedIndexPath.row] = bill
                 tableView.reloadRows(at: [selectedIndexPath], with: .none)
@@ -168,14 +172,12 @@ class BillTableViewController: UITableViewController {
                 // Add a new bill.
                 let newIndexPath = IndexPath(row: (group?.bills.count)!, section: 0)
                 
+                group?.individualTotal[bill.name] = group!.individualTotal[bill.name]! + bill.amount
+                
                 group?.bills.append(bill)
                 tableView.insertRows(at: [newIndexPath], with: .automatic)
                 
-                //Update individual debt
-                let newval = bill.amount
-                let currentdebt = group!.individualTotal[bill.name]
-                let update = (currentdebt! + newval)
-                group?.individualTotal[bill.name] = update
+
                 
             }
         }

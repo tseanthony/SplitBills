@@ -15,7 +15,6 @@ class GroupViewController: UIViewController, UITableViewDataSource, UITableViewD
     @IBOutlet weak var navBar: UINavigationBar!
     @IBOutlet weak var groupTableView: UITableView!
   
-    var modelcontroller: ModelController!
     var groups = [Group]()
     
     override func viewDidLoad() {
@@ -25,14 +24,17 @@ class GroupViewController: UIViewController, UITableViewDataSource, UITableViewD
         groupTableView.dataSource = self
         groupTableView.delegate = self
         //Temporary until I get persistent data
-        loadSampleGroups()
-        modelcontroller.groups = self.groups
+        //loadSampleGroups()
+        //groups = self.groups
+        if let savedgroups = loadGroups() {
+            groups += savedgroups
+        }
     
     }
 
     //MARK: Table View Data Source
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return modelcontroller.groups.count
+        return groups.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -43,7 +45,7 @@ class GroupViewController: UIViewController, UITableViewDataSource, UITableViewD
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? GroupTableViewCell else { fatalError("The dequeued cell is not an instance of BillTableViewCell.")
         }
         
-        let group = modelcontroller.groups[indexPath.row]
+        let group = groups[indexPath.row]
         cell.nameLabel.text = group.name
         return cell
         
@@ -52,9 +54,10 @@ class GroupViewController: UIViewController, UITableViewDataSource, UITableViewD
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             
-            modelcontroller.groups.remove(at: indexPath.row)
-            
+            groups.remove(at: indexPath.row)
+            saveGroups()
             tableView.deleteRows(at: [indexPath], with: .fade)
+            
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }
@@ -109,7 +112,7 @@ class GroupViewController: UIViewController, UITableViewDataSource, UITableViewD
             }
             
             //Deliver references
-            let selectedGroup = modelcontroller.groups[indexPath.row]
+            let selectedGroup = groups[indexPath.row]
             SumViewController.group = selectedGroup
             BillListCont.group = selectedGroup
             MemInfoController.group = selectedGroup
@@ -125,61 +128,76 @@ class GroupViewController: UIViewController, UITableViewDataSource, UITableViewD
     @IBAction func unwindToGroupView(sender: UIStoryboardSegue) {
         if let sourceViewController = sender.source as? AddGroupViewController, let group = sourceViewController.group {
             
-            let newIndexPath = IndexPath(row: modelcontroller.groups.count, section: 0)
+            let newIndexPath = IndexPath(row: groups.count, section: 0)
         
-            modelcontroller.groups.append(group)
+            groups.append(group)
             groupTableView.insertRows(at: [newIndexPath], with: .automatic)
         }
+        saveGroups()
     }
     
 
     //MARK: private methods
-    private func loadSampleGroups(){
-        
-        //set up bills
-        guard let bill1 = Bill(amount: 12.73, name: "Anthony", date: "01/13/2019", description: "Pizza \u{1F355}") else {
-            fatalError("Unable to instantiate bill1")
-        }
-        guard let bill2 = Bill(amount: 49.83, name: "Ram", date: "12/13/2018", description: "Electric Bill \u{1F4A1}") else {
-            fatalError("Unable to instantiate bill2")
-        }
-        guard let bill3 = Bill(amount: 18.94, name: "Sarah", date: "12/13/2014", description: "Uber to Brooklyn \u{1F695}") else {
-            fatalError("Unable to instantiate bill3")
-        }
-        
-        let bills = [bill1, bill2, bill3]
-        
-        guard let group1 = Group(name: "Team Bills") else {
-            fatalError("Unable to instantiate bill3")
-        }
-        guard let group2 = Group(name: "Patriots") else {
-            fatalError("Unable to instantiate bill3")
-        }
-        guard let group3 = Group(name: "Chiefs") else {
-            fatalError("Unable to instantiate bill3")
-        }
-        
-        
-        group1.members = ["Anthony", "Ram", "Stephanie"]
-        group1.bills = bills
-        group1.individualTotal = ["Anthony": 12.73, "Ram":49.83, "Stephanie": 18.94 ]
-        group1.total = 12.73 + 49.83 + 18.94
-        //will do .membersInfo later
-        
-        group2.members = ["Anthony", "Ram", "Stephanie"]
-        group2.bills = bills
-        group2.individualTotal = ["Anthony": 12.73, "Ram":49.83, "Stephanie": 18.94 ]
-        group2.total = 12.73 + 49.83 + 18.94
-        //will do .membersInfo later
-        
-        group3.members = ["Anthony", "Ram", "Stephanie"]
-        group3.bills = bills
-        group3.individualTotal = ["Anthony": 12.73, "Ram":49.83, "Stephanie": 18.94 ]
-        group3.total = 12.73 + 49.83 + 18.94
-        //will do .membersInfo later
-        
-        
-        groups += [group1, group2, group3]
     
+    private func saveGroups() {
+        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(groups, toFile: Group.ArchiveURL.path)
+        if isSuccessfulSave {
+            os_log("Groups successfully saved.", log: OSLog.default, type: .debug)
+        } else {
+            os_log("Failed to save groups...", log: OSLog.default, type: .error)
+        }
     }
+    
+    private func loadGroups() -> [Group]?  {
+        return NSKeyedUnarchiver.unarchiveObject(withFile: Group.ArchiveURL.path) as? [Group]
+    }
+    
+//    private func loadSampleGroups(){
+//
+//        //set up bills
+//        guard let bill1 = Bill(amount: 12.73, name: "Anthony", date: "01/13/2019", description: "Pizza \u{1F355}") else {
+//            fatalError("Unable to instantiate bill1")
+//        }
+//        guard let bill2 = Bill(amount: 49.83, name: "Ram", date: "12/13/2018", description: "Electric Bill \u{1F4A1}") else {
+//            fatalError("Unable to instantiate bill2")
+//        }
+//        guard let bill3 = Bill(amount: 18.94, name: "Sarah", date: "12/13/2014", description: "Uber to Brooklyn \u{1F695}") else {
+//            fatalError("Unable to instantiate bill3")
+//        }
+//
+//        let bills = [bill1, bill2, bill3]
+//
+//        guard let group1 = Group(name: "Team Bills") else {
+//            fatalError("Unable to instantiate bill3")
+//        }
+//        guard let group2 = Group(name: "Patriots") else {
+//            fatalError("Unable to instantiate bill3")
+//        }
+//        guard let group3 = Group(name: "Chiefs") else {
+//            fatalError("Unable to instantiate bill3")
+//        }
+//
+//
+//        group1.members = ["Anthony", "Ram", "Stephanie"]
+//        group1.bills = bills
+//        group1.individualTotal = ["Anthony": 12.73, "Ram":49.83, "Stephanie": 18.94 ]
+//        group1.total = 12.73 + 49.83 + 18.94
+//        //will do .membersInfo later
+//
+//        group2.members = ["Anthony", "Ram", "Stephanie"]
+//        group2.bills = bills
+//        group2.individualTotal = ["Anthony": 12.73, "Ram":49.83, "Stephanie": 18.94 ]
+//        group2.total = 12.73 + 49.83 + 18.94
+//        //will do .membersInfo later
+//
+//        group3.members = ["Anthony", "Ram", "Stephanie"]
+//        group3.bills = bills
+//        group3.individualTotal = ["Anthony": 12.73, "Ram":49.83, "Stephanie": 18.94 ]
+//        group3.total = 12.73 + 49.83 + 18.94
+//        //will do .membersInfo later
+//
+//
+//        groups += [group1, group2, group3]
+//
+//    }
 }

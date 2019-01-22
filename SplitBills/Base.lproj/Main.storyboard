@@ -655,7 +655,7 @@
                     </navigationItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="groupTableView" destination="TqQ-1K-t6c" id="weO-WS-eGW"/>
+                        <outlet property="groupTableView" destination="TqQ-1K-t6c" id="Hm7-9N-eRF"/>
                         <outlet property="navBar" destination="dVM-UG-rul" id="00T-wt-bFc"/>
                     </connections>
                 </viewController>
